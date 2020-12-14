@@ -46,8 +46,8 @@ in
     Unit.Description = "${k} obelisk application";
     Service.Type = "simple";
     Service.Restart = "always";
-    Service.ExecStart = "$XDG_CONFIG_HOME/${k}/backend --port=${builtins.toString v.port}";
-    Service.WorkingDirectory = "$XDG_CONFIG_HOME/${k}";
+    Service.ExecStart = "%S/${k}/backend --port=${builtins.toString v.port}";
+    Service.WorkingDirectory = "%S/${k}";
   }) obs;
   # "Deploy" the application executables
   config.home.activation = lib.mapAttrs'
