@@ -8,7 +8,8 @@ in
       { options = {
           obelisk = lib.mkOption {
             type = lib.types.package;
-            description = "The derivation containing the obelisk application that forms the basis of this service.";
+            description = "The derivation containing the obelisk application that forms the basis of this service. This is usually the 'exe' attribute of the obelisk app.";
+            example = "(import /path/to/obeliskapp {}).exe";
           };
           configSource = lib.mkOption {
             type = lib.types.path;
