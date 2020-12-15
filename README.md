@@ -108,7 +108,7 @@ Now in your `configuration.nix`, you can import the system systemd module and sp
 
 {
   imports = [
-    (import /obelisk-systemd { inherit config, lib; }).system;
+    (import /obelisk-systemd { inherit config lib; }).system
   ];
 
   obelisks."lithograph" = {
