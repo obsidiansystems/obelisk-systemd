@@ -106,17 +106,19 @@ Now in your `configuration.nix`, you can import the system systemd module and sp
 ```nix
 { config, lib, ... }:
 
-imports = [
-  (import /obelisk-systemd { inherit config, lib; }).system;
-];
+{
+  imports = [
+    (import /obelisk-systemd { inherit config, lib; }).system;
+  ];
 
-obelisks."lithograph" = {
-  obelisk = (import ./lithograph {}).exe;
-  configSoruce = ./config;
-  port = 8080;
-  enableNginxReverseProxy = true;
-  enableHttps = true;
-  virtualHostName = "lithograph.example.com";
-  acmeCertAdminEmail = "admin@example.com";
-};
+  obelisks."lithograph" = {
+    obelisk = (import ./lithograph {}).exe;
+    configSoruce = ./config;
+    port = 8080;
+    enableNginxReverseProxy = true;
+    enableHttps = true;
+    virtualHostName = "lithograph.example.com";
+    acmeCertAdminEmail = "admin@example.com";
+  };
+}
 ```
