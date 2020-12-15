@@ -1,5 +1,5 @@
 # obelisk-systemd
-[![Built with Nix](https://img.shields.io/static/v1?logo=nixos&logoColor=white&label=&message=Built%20with%20Nix&color=41439a)](https://nixos.org)
+[![Built with Nix](https://img.shields.io/static/v1?logo=nixos&logoColor=white&label=&message=Built%20with%20Nix&color=41439a)](https://nixos.org) [![Obelisk](https://img.shields.io/badge/Powered%20By-Obelisk-black?style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAXVBMVEUAAAAAAP+AgIAaGhoKCgoJCQkQEBQPEhIVGhwbHSMcHiMcHiUdISclKTEpLzYsMTstMjsvNT4vNT8vNj80PUc6R1M8S1dIXWxVcoRhhZljiZ1jip5pk6lum7FwnrUhj9JFAAAAEHRSTlMAAQIKGR5ARm2MkJCcx+b4Muz3FwAAAGxJREFUCB0FwQlqxDAQADBlnMvQ/v+dhYA3rD1TaUP0fYs1R9K4ftr29N/ryKW5OjXOM8621h4dRW16fuOGYuG+44Ci0I7YYFLQAiQFoqBIWDEhWVgzBiSFz4gcKDCe3L06mO/z2nm/F+pvJP9dpDX3DsTigAAAAABJRU5ErkJggg==)](https://github.com/obsidiansystems/obelisk)
 
 Define systemd services for obelisk applications.
 
