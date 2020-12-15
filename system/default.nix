@@ -1,4 +1,4 @@
-{ config, options, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let cfg = config;
     httpsObelisks = lib.filterAttrs (_: v: v.enableHttps) cfg.obelisks;
@@ -40,23 +40,10 @@ let cfg = config;
           type = types.str;
           default = "/";
         };
-        backendArgs = lib.mkOption {
+        extraBackendArgs = lib.mkOption {
           type = types.str;
-          default = "--port=" + toString port;
+          default = "";
         };
-        assertions = [
-          { assertion = !enableHttps ||
-              (enableHttps && enableNginxReverseProxy && (adminCertEmail != null));
-            message = ''
-              enableHttps requires both enableNginxReverseProxy and adminCertEmail.
-            '';
-          }
-          { assertion = enableNginxReverseProxy && virtualHostName != null;
-            message = ''
-              enableNginxReverseProxy requires virtualHostName to be defined.
-            '';
-          }
-        ];
       };
     };
 in
@@ -68,7 +55,7 @@ in
 
   # Configure nginx reverse proxy (with Let's Encrypt, if HTTPS is enabled)
   config.services.nginx = {
-    enable = lib.any (v: v.enableNginxReverseProxy) (lib.attrVals cfg.obelisks);
+    enable = lib.any (v: v.enableNginxReverseProxy) (lib.attrValues cfg.obelisks);
     recommendedProxySettings = true;
     virtualHosts = lib.mapAttrs' (k: v: {
       name = v.virtualHostName;
@@ -87,13 +74,14 @@ in
   };
 
   # Open firewall ports for server traffic
-  config.networking.firewall.allowedTCPPorts = if lib.length (lib.attrVals httpsObelisks) > 0
+  config.networking.firewall.allowedTCPPorts = if lib.length (lib.attrValues httpsObelisks) > 0
     then [ 80 443 ]
     else [ 80 ];
 
   # If using Let's Encrypt, we must provide an admin contact email address
-  config.security.acme.certs = lib.mapAttrs (_: v: {
-    "${v.virtualHostName}".email = v.acmeCertAdminEmail;
+  config.security.acme.certs = lib.mapAttrs' (_: v: {
+    name = "${v.virtualHostName}";
+    value = { email = v.acmeCertAdminEmail; };
   }) httpsObelisks;
 
   # Configure the systemd service for each application
@@ -105,7 +93,7 @@ in
     script = ''
       ln -sft . '${v.obelisk}'/*
       mkdir -p log
-      exec ./backend ${v.backendArgs} < /dev/null
+      exec ./backend --port=${toString v.port} ${v.extraBackendArgs} < /dev/null
     '';
     serviceConfig = {
       User = name;
@@ -117,14 +105,14 @@ in
   }) cfg.obelisks;
 
   # Configure a separate user for each application
-  config.users = lib.mapAttrs (name: v: {
-    users.${name} = {
-      description = "${name} service";
-      home = "/var/lib/${name}";
-      createHome = true;
-      isSystemUser = true;
-      group = name;
-    };
-    groups.${name} = {};
+  config.users.users = lib.mapAttrs (name: v: {
+    description = "${name} service";
+    home = "/var/lib/${name}";
+    createHome = true;
+    isSystemUser = true;
+    group = name;
+  }) cfg.obelisks;
+  # Configure a separate group for each application
+  config.users.groups = lib.mapAttrs (_: _: {
   }) cfg.obelisks;
 }

@@ -50,10 +50,10 @@ echo "http://localhost:8080" > config/common/route
 Now in `home.nix` you can import the user systemd module and specify your app configuration. See [common/default.nix](common/default.nix) and [user/default.nix](user/default.nix) for an explanation of the options:
 
 ```nix
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 imports = [
-  (import ./obelisk-systemd { inherit config lib; }).user
+  (import ./obelisk-systemd { inherit config lib pkgs; }).user
 ];
 
 obelisks."lithograph" = {
@@ -104,10 +104,10 @@ echo "https://lithograph.example.com" > config/common/route
 Now in your `configuration.nix`, you can import the system systemd module and specify your app configuration. See [common/default.nix](common/default.nix) and [system/default.nix](system/default.nix) for an explanation of the options:
 
 ```nix
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 imports = [
-  (import /obelisk-systemd { inherit config, lib; }).system;
+  (import /obelisk-systemd { inherit config lib pkgs; }).system;
 ];
 
 obelisks."lithograph" = {
