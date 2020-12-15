@@ -1,6 +1,20 @@
 # obelisk-systemd
+[![Built with Nix](https://img.shields.io/static/v1?logo=nixos&logoColor=white&label=&message=Built%20with%20Nix&color=41439a)](https://nixos.org)
 
 Define systemd services for obelisk applications.
+
+
+* [User-level systemd service via home-manager](#user-level-systemd-service-via-home-manager)
+  * [Example configuration](#example-configuration)
+    * [Fetch sources](#fetch-sources)
+    * [Configure obelisk app](#configure-obelisk-app)
+    * [home-manager configuration](#home-manager-configuration)
+    * [Activate](#activate)
+* [System-level systemd service via NixOS](#system-level-systemd-service-via-nixos)
+  * [Example configuration](#example-configuration-1)
+    * [Fetch sources](#fetch-sources-1)
+    * [Configure obelisk app](#configure-obelisk-app-1)
+    * [NixOS Configuration](#nixos-configuration)
 
 ## User-level systemd service via home-manager
 
