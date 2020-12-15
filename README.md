@@ -52,15 +52,17 @@ Now in `home.nix` you can import the user systemd module and specify your app co
 ```nix
 { config, lib, ... }:
 
-imports = [
-  (import ./obelisk-systemd { inherit config lib; }).user
-];
+{
+  imports = [
+    (import ./obelisk-systemd { inherit config lib; }).user
+  ];
 
-obelisks."lithograph" = {
-  obelisk = (import ./lithograph {}).exe;
-  configSource = ./config;
-  port = 8080;
-};
+  obelisks."lithograph" = {
+    obelisk = (import ./lithograph {}).exe;
+    configSource = ./config;
+    port = 8080;
+  };
+}
 ```
 
 #### Activate
