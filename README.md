@@ -129,7 +129,7 @@ Now in your `configuration.nix`, you can import the system systemd module and sp
 
   obelisks."lithograph" = {
     obelisk = (import ./lithograph {}).exe;
-    configSoruce = ./config;
+    configSource = ./config;
     port = 8080;
     enableNginxReverseProxy = true;
     enableHttps = true;
