@@ -8,7 +8,7 @@ in
 { options.obelisks = lib.mkOption {
     type = lib.types.attrsOf (lib.types.submodule obeliskSubmodule);
     default = {};
-    example = lib.literalExample ''
+    example = lib.literalExpression ''
       obelisks."myapp" = {
         obelisk = (import /path/to/myapp {}).exe;
         configSource = "/path/to/config";
