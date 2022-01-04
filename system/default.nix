@@ -27,14 +27,14 @@ let cfg = config;
           description = ''
             Enable nginx reverse proxy.
           '';
-          default = true;
+          default = false;
         };
         enableHttps = lib.mkOption {
           type = types.bool;
           description = ''
             Enable HTTPS via Let's Encrypt.
           '';
-          default = true;
+          default = false;
         };
         baseUrl = lib.mkOption {
           type = types.str;
