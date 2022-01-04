@@ -39,10 +39,16 @@ let cfg = config;
         baseUrl = lib.mkOption {
           type = types.str;
           default = "/";
+          description = ''
+            Specified the base url path at which the application will be served.
+          '';
         };
         extraBackendArgs = lib.mkOption {
           type = types.str;
           default = "";
+          description = ''
+            Additional arguments passed verbatim to the backend executable.
+          '';
         };
         userName = lib.mkOption {
           type = types.nullOr types.str;
@@ -66,6 +72,16 @@ in
   options.obelisks = lib.mkOption {
     type = lib.types.attrsOf (lib.types.submodule obeliskSubmodule);
     default = {};
+    description = ''
+      An attribute set of obelisk applications to be managed by systemd.
+    '';
+    example = lib.literalExpression ''
+      obelisks."myapp" = {
+        obelisk = (import /path/to/myapp {}).exe;
+        configSource = "/path/to/config";
+        port = 8080;
+      };
+    '';
   };
 
   # Configure nginx reverse proxy (with Let's Encrypt, if HTTPS is enabled)
