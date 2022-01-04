@@ -29,7 +29,6 @@ let inherit (pkgs) lib;
               then "\n```\n" + x.text + "\n```"
               else code (builtins.toJSON x)
             else code (builtins.toJSON x);
-          ex = v: showNicely v.example;
       in
       lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: if !(lib.hasAttr "_type" v) then "" else ''
         ### `${p + k} :: ${v.type.description}`
@@ -38,7 +37,7 @@ let inherit (pkgs) lib;
 
         ${if v.default != null then "Default: " + showNicely v.default else ""}
 
-        ${if v.example != null && v.example != {} then "Example: ${ex v}" else ""}
+        ${if v.example != null && v.example != {} then "Example: ${showNicely v.example}" else ""}
 
         ${generateMarkdown (if v.type.name == "attrsOf" then p + k + ".<name>" else p + k) v.suboptions}
       '') opts);
