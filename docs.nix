@@ -7,9 +7,12 @@ let inherit (pkgs) lib;
       let subopts = if lib.hasAttr "getSubOptions" v.type
             then v.type.getSubOptions {}
             else {};
-      in if !(lib.isAttrs v) || !(lib.hasAttr "_type" v)then {} else
+      in if !(lib.isAttrs v) || !(lib.hasAttr "_type" v) then {} else
       { inherit (v) _type;
-        type = v.type.description;
+        type = {
+          name = v.type.name;
+          description = v.type.description;
+        };
         description = lib.optionalString (lib.hasAttr "description" v) v.description;
         example = lib.optionalString (lib.hasAttr "example" v) v.example;
         suboptions = getOptions subopts;
@@ -27,13 +30,13 @@ let inherit (pkgs) lib;
               else builtins.toJSON v.example;
       in
       lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: if !(lib.hasAttr "_type" v) then "" else ''
-        ### `${p + k} :: ${v.type}`
+        ### `${p + k} :: ${v.type.description}`
 
         ${if v.description != "" then "Description: ${v.description}" else ""}
 
         ${if v.example != "" && v.example != {} then "Example: ${ex v}" else ""}
 
-        ${generateMarkdown k v.suboptions}
+        ${generateMarkdown (if v.type.name == "attrsOf" then p + k + ".<name>" else p + k) v.suboptions}
       '') opts);
 in { md = (generateMarkdown "" options);
      json = builtins.toJSON options;
