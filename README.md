@@ -73,7 +73,7 @@ Now in `home.nix` you can import the user systemd module and specify your app co
 
   obelisks."lithograph" = {
     obelisk = (import ./lithograph {}).exe;
-    configSource = ./config;
+    configSource = "/path/to/config";
     port = 8080;
   };
 }
@@ -129,7 +129,7 @@ Now in your `configuration.nix`, you can import the system systemd module and sp
 
   obelisks."lithograph" = {
     obelisk = (import ./lithograph {}).exe;
-    configSource = ./config;
+    configSource = "/path/to/config";
     port = 8080;
     enableNginxReverseProxy = true;
     enableHttps = true;
