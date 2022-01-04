@@ -7,7 +7,7 @@ in
   ];
   obelisks."skeleton" = {
     obelisk = (import (thunkSource ./obelisk + "/skeleton") {}).exe;
-    configSource = ./config;
+    configSource = "${./config}";
     port = 8080;
     enableNginxReverseProxy = true;
     enableHttps = false;
