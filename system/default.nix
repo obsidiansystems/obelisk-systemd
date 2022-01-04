@@ -44,6 +44,21 @@ let cfg = config;
           type = types.str;
           default = "";
         };
+        userName = lib.mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = ''
+            The name of the user that will run the service. This user will be created. Defaults to the name of the obelisk.
+          '';
+        };
+        userHome = lib.mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = ''
+            The home directory for the user that will run the service. Defaults to /var/lib/name-of-obelisk
+          '';
+          example = "/var/lib/example";
+        };
       };
     };
 in
@@ -91,8 +106,10 @@ in
     restartIfChanged = true;
     path = [ pkgs.gnutar ];
     script = ''
-      ln -sft . '${v.obelisk}'/*
       mkdir -p log
+      mkdir -p config
+      ln -sf '${v.configSource}'/* config/
+      ln -sft . '${v.obelisk}'/*
       exec ./backend --port=${toString v.port} ${v.extraBackendArgs} < /dev/null
     '';
     serviceConfig = {
@@ -105,9 +122,13 @@ in
   }) cfg.obelisks;
 
   # Configure a separate user for each application
-  config.users.users = lib.mapAttrs (name: v: {
+  config.users.users = lib.mapAttrs (name: v:
+  let effectiveName = if v.userName != null then v.userName else name;
+  in {
     description = "${name} service";
-    home = "/var/lib/${name}";
+    home = if v.userHome != null
+      then v.userHome
+      else "/var/lib/${effectiveName}";
     createHome = true;
     isSystemUser = true;
     group = name;
