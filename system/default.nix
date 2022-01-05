@@ -18,7 +18,7 @@ let cfg = config;
           type = types.str;
           description = ''
             Contact email address for the CA to be able to reach you. See
-            security.acme.certs in the NiOS manual.
+            security.acme.certs in the NixOS manual.
           '';
           example = "admin@example.com";
         };
@@ -39,10 +39,16 @@ let cfg = config;
         baseUrl = lib.mkOption {
           type = types.str;
           default = "/";
+          description = ''
+            Specifies the base url path at which the application will be served.
+          '';
         };
         extraBackendArgs = lib.mkOption {
           type = types.str;
           default = "";
+          description = ''
+            Additional arguments passed verbatim to the backend executable.
+          '';
         };
         userName = lib.mkOption {
           type = types.nullOr types.str;
@@ -66,6 +72,16 @@ in
   options.obelisks = lib.mkOption {
     type = lib.types.attrsOf (lib.types.submodule obeliskSubmodule);
     default = {};
+    description = ''
+      An attribute set of obelisk applications to be managed by systemd.
+    '';
+    example = lib.literalExpression ''
+      obelisks."myapp" = {
+        obelisk = (import /path/to/myapp {}).exe;
+        configSource = "/path/to/config";
+        port = 8080;
+      };
+    '';
   };
 
   # Configure nginx reverse proxy (with Let's Encrypt, if HTTPS is enabled)

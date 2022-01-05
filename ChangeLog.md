@@ -1,5 +1,10 @@
 # Release history of obelisk-systemd
 
+## v0.2.0.1
+
+* Add module docs
+* Add test to verify that configs could be read
+
 ## v0.2.0.0
 
 * Keep configs out of the nix store
