@@ -62,7 +62,7 @@ let inherit (pkgs) lib;
               else code (builtins.toJSON x)
             else code (builtins.toJSON x);
       in
-      lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: if !(lib.hasAttr "_type" v) then "" else ''
+      lib.concatStrings (lib.mapAttrsToList (k: v: if !(lib.hasAttr "_type" v) then "" else ''
         ### `${p + k} :: ${v.type.description}`
 
         ${if v.description != null then "Description: ${v.description}" else ""}

@@ -19,7 +19,6 @@ obelisks."myapp" = {
 
 ```
 
-
 ### `obelisks.<name>.acmeCertAdminEmail :: string`
 
 Description: Contact email address for the CA to be able to reach you. See
@@ -31,14 +30,12 @@ security.acme.certs in the NixOS manual.
 Example: `"admin@example.com"`
 
 
-
 ### `obelisks.<name>.baseUrl :: string`
 
 Description: Specified the base url path at which the application will be served.
 
 
 Default: `"/"`
-
 
 
 
@@ -53,14 +50,12 @@ Description: The path to the obelisk application configuration folder. Configs w
 Example: `"/path/to/obelisk-app/config"`
 
 
-
 ### `obelisks.<name>.enableHttps :: boolean`
 
 Description: Enable HTTPS via Let's Encrypt.
 
 
 Default: `false`
-
 
 
 
@@ -75,14 +70,12 @@ Default: `false`
 
 
 
-
 ### `obelisks.<name>.extraBackendArgs :: string`
 
 Description: Additional arguments passed verbatim to the backend executable.
 
 
 Default: `""`
-
 
 
 
@@ -96,7 +89,6 @@ Description: The derivation containing the obelisk application that forms the ba
 Example: `"(import /path/to/obeliskapp {}).exe"`
 
 
-
 ### `obelisks.<name>.port :: 16 bit unsigned integer; between 0 and 65535 (both inclusive)`
 
 Description: The port this service should listen on.
@@ -104,7 +96,6 @@ Description: The port this service should listen on.
 Default: `8080`
 
 Example: `8080`
-
 
 
 ### `obelisks.<name>.userHome :: null or string`
@@ -117,11 +108,9 @@ Description: The home directory for the user that will run the service. Defaults
 Example: `"/var/lib/example"`
 
 
-
 ### `obelisks.<name>.userName :: null or string`
 
 Description: The name of the user that will run the service. This user will be created. Defaults to the name of the obelisk.
-
 
 
 
@@ -162,7 +151,6 @@ obelisks."myapp" = {
 
 ```
 
-
 ### `obelisks.<name>.configSource :: string`
 
 Description: The path to the obelisk application configuration folder. Configs will be copied from this folder every time the configuration is rebuilt. See <link xlink:heref="https://github.com/obsidiansystems/obelisk/tree/master/skeleton/config#config"> for more information.
@@ -173,7 +161,6 @@ Description: The path to the obelisk application configuration folder. Configs w
 Example: `"/path/to/obelisk-app/config"`
 
 
-
 ### `obelisks.<name>.obelisk :: package`
 
 Description: The derivation containing the obelisk application that forms the basis of this service. This is usually the 'exe' attribute of the obelisk app.
@@ -181,7 +168,6 @@ Description: The derivation containing the obelisk application that forms the ba
 
 
 Example: `"(import /path/to/obeliskapp {}).exe"`
-
 
 
 ### `obelisks.<name>.port :: 16 bit unsigned integer; between 0 and 65535 (both inclusive)`
