@@ -23,10 +23,6 @@
 , module ?  import ./system { config = {}; inherit pkgs; inherit (pkgs) lib; } 
 }:
 let inherit (pkgs) lib;
-    # Check if an attrset contains an attr. If it does, return it. If it
-    # doesn't return null.
-    attrOrNull = x: a: if lib.hasAttr a x then x."${a}" else null;
-
     # Turns an options attrset into a description of those options that is
     # easily convertible to JSON. Usually, you'll call this with the "options"
     # attribute of some module. This will recurse into the sub-options of a
@@ -41,9 +37,9 @@ let inherit (pkgs) lib;
           name = v.type.name;
           description = v.type.description;
         };
-        description = attrOrNull v "description";
-        example = attrOrNull v "example";
-        default = attrOrNull v "default";
+        description = v.description or null;
+        example = v.example or null;
+        default = v.default or null;
         suboptions = getOptions subopts;
     }) a;
     optionsDescription = getOptions module.options;
