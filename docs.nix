@@ -56,23 +56,22 @@ let inherit (pkgs) lib;
       let h = n: lib.concatMapStrings (_: "#") (lib.lists.range 1 n);
           p = if parent == null then "" else parent + ".";
           code = x: "`" + x + "`";
+          removeTrailingNewlines = s: if lib.strings.hasSuffix "\n" s
+            then removeTrailingNewlines (lib.strings.removeSuffix "\n" s)
+            else s;
           showNicely = x: if lib.isAttrs x
             then if lib.hasAttr "_type" x && lib.lists.elem x._type ["literalExample" "literalExpression"]
               then "\n```\n" + x.text + "\n```"
               else code (builtins.toJSON x)
             else code (builtins.toJSON x);
       in
-      lib.concatStrings (lib.mapAttrsToList (k: v: if !(lib.hasAttr "_type" v) then "" else ''
-        ### `${p + k} :: ${v.type.description}`
-
-        ${if v.description != null then "Description: ${v.description}" else ""}
-
-        ${if v.default != null then "Default: " + showNicely v.default else ""}
-
-        ${if v.example != null && v.example != {} then "Example: ${showNicely v.example}" else ""}
-
-        ${generateMarkdown (if v.type.name == "attrsOf" then p + k + ".<name>" else p + k) v.suboptions}
-      '') opts);
+      lib.concatStrings (lib.mapAttrsToList (k: v: if !(lib.hasAttr "_type" v) then "" else lib.concatStringsSep "\n\n" (lib.concatLists
+        [ ["### `${p + k} :: ${v.type.description}`"]
+          (lib.optional (v.description != null) "Description: ${removeTrailingNewlines v.description}")
+          (lib.optional (v.default != null) ("Default: " + showNicely v.default))
+          (lib.optional (v.example != null && v.example != {}) "Example: ${showNicely v.example}")
+          [(generateMarkdown (if v.type.name == "attrsOf" then p + k + ".<name>" else p + k) v.suboptions)]
+        ])) opts);
 in { md = (generateMarkdown null optionsDescription);
      json = builtins.toJSON optionsDescription;
    }
