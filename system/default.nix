@@ -18,7 +18,7 @@ let cfg = config;
           type = types.str;
           description = ''
             Contact email address for the CA to be able to reach you. See
-            security.acme.certs in the NiOS manual.
+            security.acme.certs in the NixOS manual.
           '';
           example = "admin@example.com";
         };

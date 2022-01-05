@@ -23,7 +23,7 @@ obelisks."myapp" = {
 ### `obelisks.<name>.acmeCertAdminEmail :: string`
 
 Description: Contact email address for the CA to be able to reach you. See
-security.acme.certs in the NiOS manual.
+security.acme.certs in the NixOS manual.
 
 
 
