@@ -61,7 +61,7 @@ echo "http://localhost:8080" > config/common/route
 
 #### home-manager configuration
 
-Now in `home.nix` you can import the user systemd module and specify your app configuration. See [common/default.nix](common/default.nix) and [user/default.nix](user/default.nix) for an explanation of the options:
+Now in `home.nix` you can import the user systemd module and specify your app configuration. For documentation of all of the module options, see [module-options.md](./module-options.md).
 
 ```nix
 { config, lib, pkgs, ... }:
@@ -117,7 +117,7 @@ echo "https://lithograph.example.com" > config/common/route
 
 #### NixOS Configuration
 
-Now in your `configuration.nix`, you can import the system systemd module and specify your app configuration. See [common/default.nix](common/default.nix) and [system/default.nix](system/default.nix) for an explanation of the options:
+Now in your `configuration.nix`, you can import the system systemd module and specify your app configuration. For documentation of all of the module options, see [module-options.md](./module-options.md).
 
 ```nix
 { config, lib, pkgs, ... }:
