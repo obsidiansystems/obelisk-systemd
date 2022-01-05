@@ -32,7 +32,7 @@ Example: `"admin@example.com"`
 
 ### `obelisks.<name>.baseUrl :: string`
 
-Description: Specified the base url path at which the application will be served.
+Description: Specifies the base url path at which the application will be served.
 
 
 Default: `"/"`

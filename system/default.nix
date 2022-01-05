@@ -40,7 +40,7 @@ let cfg = config;
           type = types.str;
           default = "/";
           description = ''
-            Specified the base url path at which the application will be served.
+            Specifies the base url path at which the application will be served.
           '';
         };
         extraBackendArgs = lib.mkOption {
