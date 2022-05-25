@@ -24,6 +24,7 @@ in
     Service.Type = "simple";
     Service.Restart = "always";
     Service.ExecStart = "%S/${k}/backend --port=${builtins.toString v.port}";
+    Service.KillMode = "control-group";
     Service.WorkingDirectory = "%S/${k}";
   }) obs;
 

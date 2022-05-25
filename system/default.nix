@@ -130,7 +130,7 @@ in
     '';
     serviceConfig = {
       User = name;
-      KillMode = "process";
+      KillMode = "control-group";
       WorkingDirectory = "~";
       Restart = "always";
       RestartSec = 5;

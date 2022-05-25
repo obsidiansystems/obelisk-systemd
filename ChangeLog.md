@@ -1,5 +1,9 @@
 # Release history of obelisk-systemd
 
+## v0.2.1.0
+
+* Change systemd [KillMode](https://www.freedesktop.org/software/systemd/man/systemd.kill.html#KillMode=) to "control-group" so that child processes are terminated when the unit is stopped or restarted
+
 ## v0.2.0.1
 
 * Add module docs
