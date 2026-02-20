@@ -26,6 +26,7 @@ in
     Service.ExecStart = "%S/${k}/backend --port=${builtins.toString v.port}";
     Service.KillMode = "control-group";
     Service.WorkingDirectory = "%S/${k}";
+    Install.WantedBy = [ "default.target" ];
   }) obs;
 
 
